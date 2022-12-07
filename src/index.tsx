@@ -1,10 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import {
-  createApi,
-  ApiProvider,
-  fetchBaseQuery,
-} from "@reduxjs/toolkit/query/react";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { App } from "./App";
 
@@ -51,13 +49,22 @@ const api = createApi({
 
 export const { usePokemonListQuery, usePokemonDetailQuery } = api;
 
+const store = configureStore({
+  reducer: {
+    [api.reducerPath]: api.reducer,
+  },
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware().concat(api.middleware);
+  },
+});
+
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
   <StrictMode>
-    <ApiProvider api={api}>
+    <Provider store={store}>
       <App />
-    </ApiProvider>
+    </Provider>
   </StrictMode>
 );
 
