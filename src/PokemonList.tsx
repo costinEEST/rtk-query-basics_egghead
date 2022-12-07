@@ -5,7 +5,7 @@ export function PokemonList({
 }: {
   onPokemonSelected: (x: string) => void;
 }) {
-  const { data, isLoading, isError } = usePokemonListQuery("");
+  const { data, isLoading, isError } = usePokemonListQuery(null);
 
   if (isLoading) return <>Loading..</>;
 
@@ -15,7 +15,7 @@ export function PokemonList({
     <article>
       <h2>Overview</h2>
       <ol start={1}>
-        {data.results.map(({ name }) => (
+        {data.results.map(({ name }: { name: string }) => (
           <li key={name}>
             <button onClick={() => onPokemonSelected(name)}>{name}</button>
           </li>

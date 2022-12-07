@@ -6,7 +6,7 @@ const listFormatter = new Intl.ListFormat("en-GB", {
 });
 
 export function PokemonDetails({ name }: { name: string }) {
-  const { data, isLoading, isError } = usePokemonDetailQuery("");
+  const { data, isLoading, isError } = usePokemonDetailQuery("1");
 
   if (isLoading) return <>Loading..</>;
 
@@ -22,7 +22,9 @@ export function PokemonDetails({ name }: { name: string }) {
         <li>weight: {data.weight}</li>
         <li>
           types:
-          {listFormatter.format(data.types.map((item) => item.type.name))}
+          {listFormatter.format(
+            data.types.map((item: { type: { name: string } }) => item.type.name)
+          )}
         </li>
       </ul>
     </article>
