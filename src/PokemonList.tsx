@@ -3,9 +3,9 @@ import { usePokemonListQuery } from ".";
 export function PokemonList({
   onPokemonSelected,
 }: {
-  onPokemonSelected: (x: string) => void;
+  onPokemonSelected: (name: string) => void;
 }) {
-  const { data, isLoading, isError } = usePokemonListQuery(null);
+  const { data, isLoading, isError } = usePokemonListQuery();
 
   if (isLoading) return <>Loading..</>;
 

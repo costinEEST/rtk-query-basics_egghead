@@ -12,14 +12,39 @@ import reportWebVitals from "./reportWebVitals";
 
 import "./index.css";
 
+interface PokemonListing {
+  count: number;
+  results: {
+    name: string;
+    url: string;
+  }[];
+}
+
+interface PokemonDetail {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+  types: {
+    slot: number;
+    type: {
+      name: string;
+      url: string;
+    };
+  }[];
+  sprites: {
+    front_default: string;
+  };
+}
+
 const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
   endpoints: (build) => ({
-    pokemonList: build.query({
+    pokemonList: build.query<PokemonListing, void>({
       query: () => "pokemon?limit=9",
     }),
-    pokemonDetail: build.query({
-      query: (id: string) => `pokemon/${id}`,
+    pokemonDetail: build.query<PokemonDetail, { id: string }>({
+      query: ({ id }) => `pokemon/${id}`,
     }),
   }),
 });

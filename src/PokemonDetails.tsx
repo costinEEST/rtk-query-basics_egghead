@@ -6,7 +6,7 @@ const listFormatter = new Intl.ListFormat("en-GB", {
 });
 
 export function PokemonDetails({ name }: { name: string }) {
-  const { data, isLoading, isError } = usePokemonDetailQuery("1");
+  const { data, isLoading, isError } = usePokemonDetailQuery({ id: "1" });
 
   if (isLoading) return <>Loading..</>;
 
